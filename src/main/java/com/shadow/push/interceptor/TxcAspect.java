@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,9 +17,6 @@ import java.util.List;
 @Slf4j
 public class TxcAspect {
 
-    /**
-     * 环绕通知
-     */
 
     @Around(value = "execution(* com.taobao.txc.resourcemanager.executor.TxcLogManager.branchCommit(java.util.List<com.taobao.txc.common.ContextStep2>)))")
     public void interceptorTxcCommit(ProceedingJoinPoint pjp) throws Throwable {
@@ -61,18 +57,7 @@ public class TxcAspect {
         }
     }
 
-    /**
-     * 对txcCommit注解进行aop，对切点加锁
-     */
-    @Pointcut(value = "execution(* com.taobao.txc.resourcemanager.executor.TxcLogManager.deleteUndoLog(java.util.List<com.taobao.txc.common.ContextStep2>,..))")
-    public void txcUndoPoint() {
-    }
-
-    /**
-     * 环绕通知
-     */
-
-    @Around(value = "txcUndoPoint()")
+    @Around(value = "execution(* com.taobao.txc.resourcemanager.executor.TxcLogManager.deleteUndoLog(java.util.List<com.taobao.txc.common.ContextStep2>,..))")
     public void interceptorTxcUndo(ProceedingJoinPoint pjp) throws Throwable {
 
         try {
@@ -110,20 +95,4 @@ public class TxcAspect {
             throw new Exception(e);
         }
     }
-
-    /**
-     * 环绕通知
-     */
-
-    @Around(value = "execution(* org.springframework.transaction.support.AbstractPlatformTransactionManager.commit(org.springframework.transaction.TransactionStatus))")
-    public void interceptorTranCommit(ProceedingJoinPoint pjp) throws Throwable {
-
-        Object[] args = pjp.getArgs();
-        try {
-            pjp.proceed();
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
-    }
-
 }

@@ -14,7 +14,7 @@ public class InitCtrl {
     private UserService userService;
 
     @RequestMapping(path = "/init", method = RequestMethod.GET)
-    public JSONObject retail() {
+    public JSONObject init() {
         userService.insert();
         return null;
     }

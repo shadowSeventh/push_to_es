@@ -31,6 +31,7 @@ dependencies {
     compile('org.springframework:spring-web:5.0.5.RELEASE')
     compile('org.springframework:spring-tx:4.3.18.RELEASE')
     compile('org.mybatis:mybatis:3.4.5')
+    compile('com.github.jsqlparser:jsqlparser:1.0')
     compile('mysql:mysql-connector-java:5.1.39')
     compile('org.aspectj:aspectjweaver:1.8.13')
     compile('com.alibaba:fastjson:1.2.9')

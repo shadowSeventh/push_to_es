@@ -22,5 +22,13 @@ public class UserServiceImpl implements UserService {
         userInfo.put("userName", "aaa");
         userInfo.put("passWord", "bbb");
         userMapper.insert(userInfo);
+
+        for (int i = 0; i <10 ; i++) {
+            userInfo.put("userName", i);
+            userInfo.put("passWord", i+"123");
+            userMapper.insert(userInfo);
+        }
+
+
     }
 }
